@@ -7,11 +7,12 @@ export default function Main() {
     <li key={ingredient}>{ingredient}</li>
   ));
 
-  function submit() {
+  function submit(event) {
     event.preventDefault();
     const formEl = event.currentTarget;
     const formData = new FormData(formEl);
-    const newIngredient = formData.get("ingredient");
+    const newIngredient = formData.get("ingredient").trim();
+    if (newIngredient === "") return;
     setNewForIngredient((prevIngredient) => [...prevIngredient, newIngredient]);
     console.log(newIngredient);
     formEl.reset();
@@ -28,7 +29,21 @@ export default function Main() {
         />
         <button>Add ingredient</button>
       </form>
-      <ul className="ingredients-list">{ingredientElements}</ul>
+      <section>
+        {forIngredient.length > 0 && <h2> Ingredients on hand: </h2>}
+        <ul className="ingredients-list" aria-live="polite">
+          {ingredientElements}
+        </ul>
+        {forIngredient.length > 3 && (
+          <div className="get-recipe-container">
+            <div>
+              <h3>Ready for a recipe?</h3>
+              <p>Generate a recipe from your list of ingredients.</p>
+            </div>
+            <button className="get-recipe-button">Get recipe</button>
+          </div>
+        )}
+      </section>
     </main>
   );
 }
