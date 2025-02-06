@@ -1,4 +1,6 @@
 import React from "react";
+import Form from "./form";
+import IngredientsList from "./ingredientsList";
 
 export default function Main() {
   const [forIngredient, setNewForIngredient] = React.useState([]);
@@ -20,30 +22,11 @@ export default function Main() {
 
   return (
     <main>
-      <form className="add-ingredient-form" onSubmit={submit}>
-        <input
-          type="text"
-          placeholder="eg. Onion"
-          aria-label="Add ingredient"
-          name="ingredient"
-        />
-        <button>Add ingredient</button>
-      </form>
-      <section>
-        {forIngredient.length > 0 && <h2> Ingredients on hand: </h2>}
-        <ul className="ingredients-list" aria-live="polite">
-          {ingredientElements}
-        </ul>
-        {forIngredient.length > 3 && (
-          <div className="get-recipe-container">
-            <div>
-              <h3>Ready for a recipe?</h3>
-              <p>Generate a recipe from your list of ingredients.</p>
-            </div>
-            <button className="get-recipe-button">Get recipe</button>
-          </div>
-        )}
-      </section>
+      <Form submit={submit} />
+      <IngredientsList
+        forIngredient={forIngredient}
+        ingredientElements={ingredientElements}
+      />
     </main>
   );
 }
