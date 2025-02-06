@@ -9,9 +9,12 @@ export default function Main() {
 
   function submit() {
     event.preventDefault();
-    const formData = new FormData(event.target);
+    const formEl = event.currentTarget;
+    const formData = new FormData(formEl);
     const newIngredient = formData.get("ingredient");
     setNewForIngredient((prevIngredient) => [...prevIngredient, newIngredient]);
+    console.log(newIngredient);
+    formEl.reset();
   }
 
   return (
