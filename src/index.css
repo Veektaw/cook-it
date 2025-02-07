@@ -63,6 +63,15 @@ main {
     margin-right: 5px;
 }
 
+.available-topic {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+
+.explanation {
+  margin-top: 0px;
+}
+
 ul.ingredients-list {
     margin-bottom: 48px;
 }

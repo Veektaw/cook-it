@@ -1,7 +1,13 @@
 export default function IngredientsList(props) {
   return (
     <section>
-      {props.forIngredient.length > 0 && <h2> Available ingredients: </h2>}
+      {props.forIngredient.length > 0 && (
+        <>
+          <h2 className="available-topic"> Available ingredients: </h2>
+          <p className="explanation">(At least four ingredients)</p>
+        </>
+      )}
+
       <ul className="ingredients-list" aria-live="polite">
         {props.ingredientElements}
       </ul>
