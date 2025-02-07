@@ -4,7 +4,7 @@ export default function IngredientsList(props) {
       {props.forIngredient.length > 0 && (
         <>
           <h2 className="available-topic"> Available ingredients: </h2>
-          <p className="explanation">(At least four ingredients)</p>
+          <p className="explanation">(at least four ingredients)</p>
         </>
       )}
 

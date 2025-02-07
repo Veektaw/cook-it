@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Form from "./form";
 import IngredientsList from "./ingredientsList";
 import { getRecipeFromMistral } from "./ai";
@@ -6,11 +6,27 @@ import AiResponse from "./aiResponse";
 import Spinner from "./spinner";
 
 export default function Main() {
-  const [forIngredient, setNewForIngredient] = React.useState([]);
-  const [recipe, setRecipe] = React.useState("");
-  const [isLoading, setIsLoading] = React.useState(false);
-  const [aiError, setAiError] = React.useState(null);
-  const [markdownLoading, setMarkdownLoading] = React.useState(false);
+  const [forIngredient, setNewForIngredient] = useState(() => {
+    const storedIngredients = localStorage.getItem("ingredients");
+    return storedIngredients ? JSON.parse(storedIngredients) : [];
+  });
+
+  const [recipe, setRecipe] = useState(() => {
+    const storedRecipe = localStorage.getItem("recipe");
+    return storedRecipe || "";
+  });
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [aiError, setAiError] = useState(null);
+  const [markdownLoading, setMarkdownLoading] = useState(false);
+
+  useEffect(() => {
+    localStorage.setItem("ingredients", JSON.stringify(forIngredient));
+  }, [forIngredient]);
+
+  useEffect(() => {
+    localStorage.setItem("recipe", recipe);
+  }, [recipe]);
 
   const ingredientElements = forIngredient.map((ingredient) => (
     <li key={ingredient}>{ingredient}</li>
@@ -47,6 +63,13 @@ export default function Main() {
     }
   }
 
+  function clearIngredientsAndRecipe() {
+    setNewForIngredient([]);
+    setRecipe("");
+    localStorage.removeItem("ingredients");
+    localStorage.removeItem("recipe");
+  }
+
   function submit(event) {
     event.preventDefault();
     const formEl = event.currentTarget;
@@ -59,7 +82,7 @@ export default function Main() {
 
   return (
     <main>
-      <Form submit={submit} />
+      <Form submit={submit} clear={clearIngredientsAndRecipe} />
       <IngredientsList
         forIngredient={forIngredient}
         ingredientElements={ingredientElements}

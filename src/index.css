@@ -59,7 +59,7 @@ main {
 }
 
 .add-ingredient-form > button::before {
-    content: "+";
+    /* content: "+"; */
     margin-right: 5px;
 }
 

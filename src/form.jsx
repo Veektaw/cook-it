@@ -7,7 +7,10 @@ export default function Form(props) {
         aria-label="Add ingredient"
         name="ingredient"
       />
-      <button>Add ingredient</button>
+      <button> + Add ingredient</button>
+      <button type="button" onClick={props.clear}>
+        Clear
+      </button>
     </form>
   );
 }
