@@ -1,6 +1,7 @@
 import React from "react";
 import Form from "./form";
 import IngredientsList from "./ingredientsList";
+import { getRecipeFromMistral } from "./ai";
 
 export default function Main() {
   const [forIngredient, setNewForIngredient] = React.useState([]);
@@ -9,6 +10,11 @@ export default function Main() {
     <li key={ingredient}>{ingredient}</li>
   ));
 
+  async function getRecipe() {
+    const recipeGiven = getRecipeFromMistral(forIngredient);
+    console.log(recipeGiven);
+  }
+
   function submit(event) {
     event.preventDefault();
     const formEl = event.currentTarget;
@@ -16,7 +22,6 @@ export default function Main() {
     const newIngredient = formData.get("ingredient").trim();
     if (newIngredient === "") return;
     setNewForIngredient((prevIngredient) => [...prevIngredient, newIngredient]);
-    console.log(newIngredient);
     formEl.reset();
   }
 
@@ -26,6 +31,7 @@ export default function Main() {
       <IngredientsList
         forIngredient={forIngredient}
         ingredientElements={ingredientElements}
+        getRecipe={getRecipe}
       />
     </main>
   );

@@ -9,6 +9,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.36.3",
+    "@huggingface/inference": "^3.2.0",
+    "dotenv": "^16.4.7",
     "preact": "^10.25.3"
   },
   "devDependencies": {

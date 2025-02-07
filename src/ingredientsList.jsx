@@ -11,7 +11,9 @@ export default function IngredientsList(props) {
             <h3>Ready for a recipe?</h3>
             <p>Generate a recipe from your list of ingredients.</p>
           </div>
-          <button className="get-recipe-button">Get recipe</button>
+          <button onClick={props.getRecipe} className="get-recipe-button">
+            Get recipe
+          </button>
         </div>
       )}
     </section>
