@@ -9,6 +9,7 @@ export default function Main() {
   const [forIngredient, setNewForIngredient] = React.useState([]);
   const [recipe, setRecipe] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
+  const [aiError, setAiError] = React.useState(null);
   const [markdownLoading, setMarkdownLoading] = React.useState(false);
 
   const ingredientElements = forIngredient.map((ingredient) => (
@@ -18,11 +19,28 @@ export default function Main() {
   async function getRecipe() {
     setIsLoading(true);
     setMarkdownLoading(true);
+    setAiError(null);
+
+    const timeoutId = setTimeout(() => {
+      setIsLoading(false);
+      setAiError("Request timed out. Please try again.");
+      setMarkdownLoading(false);
+    }, 25000);
+
     try {
-      const recipeGiven = await getRecipeFromMistral(forIngredient);
+      const recipeGiven = await Promise.race([
+        getRecipeFromMistral(forIngredient),
+        new Promise((_, reject) =>
+          setTimeout(() => reject(new Error("AI request timed out.")), 25000)
+        ),
+      ]);
+
+      clearTimeout(timeoutId);
       setRecipe(recipeGiven);
     } catch (error) {
+      clearTimeout(timeoutId);
       console.error("Error fetching recipe:", error);
+      setAiError("Error fetching recipe. Please try again.");
     } finally {
       setIsLoading(false);
       setMarkdownLoading(false);
@@ -50,6 +68,8 @@ export default function Main() {
       {isLoading && <Spinner />}
 
       {recipe && !markdownLoading && <AiResponse recipe={recipe} />}
+
+      {aiError && <p className="error-message">{aiError}</p>}
 
       {recipe && markdownLoading && <p>Rendering Recipe...</p>}
     </main>
