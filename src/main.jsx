@@ -2,17 +2,31 @@ import React from "react";
 import Form from "./form";
 import IngredientsList from "./ingredientsList";
 import { getRecipeFromMistral } from "./ai";
+import AiResponse from "./aiResponse";
+import Spinner from "./spinner";
 
 export default function Main() {
   const [forIngredient, setNewForIngredient] = React.useState([]);
+  const [recipe, setRecipe] = React.useState("");
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [markdownLoading, setMarkdownLoading] = React.useState(false);
 
   const ingredientElements = forIngredient.map((ingredient) => (
     <li key={ingredient}>{ingredient}</li>
   ));
 
   async function getRecipe() {
-    const recipeGiven = getRecipeFromMistral(forIngredient);
-    console.log(recipeGiven);
+    setIsLoading(true);
+    setMarkdownLoading(true);
+    try {
+      const recipeGiven = await getRecipeFromMistral(forIngredient);
+      setRecipe(recipeGiven);
+    } catch (error) {
+      console.error("Error fetching recipe:", error);
+    } finally {
+      setIsLoading(false);
+      setMarkdownLoading(false);
+    }
   }
 
   function submit(event) {
@@ -33,6 +47,11 @@ export default function Main() {
         ingredientElements={ingredientElements}
         getRecipe={getRecipe}
       />
+      {isLoading && <Spinner />}
+
+      {recipe && !markdownLoading && <AiResponse recipe={recipe} />}
+
+      {recipe && markdownLoading && <p>Rendering Recipe...</p>}
     </main>
   );
 }

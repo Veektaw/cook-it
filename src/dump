@@ -1,0 +1,79 @@
+// import express from "express";
+// import cors from "cors";
+// import { HfInference } from "@huggingface/inference";
+// import dotenv from "dotenv";
+
+// dotenv.config();
+
+// const app = express();
+// app.use(cors());
+// app.use(express.json());
+
+// const hf = new HfInference(process.env.HF_ACCESS_TOKEN);
+
+// app.post("/api/get-recipe", async (req, res) => {
+//   const { ingredients } = req.body;
+//   if (!ingredients)
+//     return res.status(400).json({ error: "Missing ingredients" });
+
+//   try {
+//     const response = await hf.chatCompletion({
+//       model: "mistralai/Mixtral-8x7B-Instruct-v0.1",
+//       messages: [
+//         { role: "system", content: "Suggest a recipe based on ingredients." },
+//         {
+//           role: "user",
+//           content: `I have ${ingredients.join(", ")}. Suggest a recipe.`,
+//         },
+//       ],
+//       max_tokens: 1024,
+//     });
+
+//     res.json({ recipe: response.choices[0].message.content });
+//   } catch (err) {
+//     res.status(500).json({ error: err.message });
+//   }
+// });
+
+// app.listen(5000, () => console.log("Server running on port 5000"));
+
+
+
+
+
+
+
+// import express from "express";
+// import cors from "cors";
+// import { HfInference } from "@huggingface/inference";
+// import dotenv from "dotenv";
+
+// dotenv.config();
+
+// const app = express();
+// app.use(cors());
+// app.use(express.json());
+
+// const hf = new HfInference(process.env.HF_ACCESS_TOKEN);
+
+// app.post("/api/get-recipe", async (req, res) => {
+//   const { ingredients } = req.body;
+//   if (!ingredients) return res.status(400).json({ error: "Missing ingredients" });
+
+//   try {
+//     const response = await hf.chatCompletion({
+//       model: "mistralai/Mixtral-8x7B-Instruct-v0.1",
+//       messages: [
+//         { role: "system", content: "Suggest a recipe based on ingredients." },
+//         { role: "user", content: `I have ${ingredients.join(", ")}. Suggest a recipe.` },
+//       ],
+//       max_tokens: 1024,
+//     });
+
+//     res.json({ recipe: response.choices[0].message.content });
+//   } catch (err) {
+//     res.status(500).json({ error: err.message });
+//   }
+// });
+
+// app.listen(5000, () => console.log("Server running on port 5000"));
