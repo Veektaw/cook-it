@@ -1,4 +1,6 @@
-export default function IngredientsList(props) {
+import React from "react";
+
+const IngredientsList = React.forwardRef((props, ref) => {
   return (
     <section>
       {props.forIngredient.length > 0 && (
@@ -13,7 +15,7 @@ export default function IngredientsList(props) {
       </ul>
       {props.forIngredient.length > 3 && (
         <div className="get-recipe-container">
-          <div>
+          <div ref={ref}>
             <h3>Ready for a recipe?</h3>
             <p>Generate a recipe from your list of ingredients.</p>
           </div>
@@ -24,4 +26,6 @@ export default function IngredientsList(props) {
       )}
     </section>
   );
-}
+});
+
+export default IngredientsList;

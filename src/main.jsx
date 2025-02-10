@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Form from "./form";
 import IngredientsList from "./ingredientsList";
 import { getRecipeFromMistral } from "./ai";
@@ -6,26 +6,40 @@ import AiResponse from "./aiResponse";
 import Spinner from "./spinner";
 
 export default function Main() {
-  const [forIngredient, setNewForIngredient] = useState(() => {
+  const [forIngredient, setNewForIngredient] = React.useState(() => {
     const storedIngredients = localStorage.getItem("ingredients");
     return storedIngredients ? JSON.parse(storedIngredients) : [];
   });
 
-  const [recipe, setRecipe] = useState(() => {
+  const [recipe, setRecipe] = React.useState(() => {
     const storedRecipe = localStorage.getItem("recipe");
     return storedRecipe || "";
   });
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [aiError, setAiError] = useState(null);
-  const [markdownLoading, setMarkdownLoading] = useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [aiError, setAiError] = React.useState(null);
+  const [markdownLoading, setMarkdownLoading] = React.useState(false);
 
-  useEffect(() => {
+  const recipeSection = React.useRef(null);
+  console.log(recipeSection);
+
+  React.useEffect(() => {
     localStorage.setItem("ingredients", JSON.stringify(forIngredient));
   }, [forIngredient]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     localStorage.setItem("recipe", recipe);
+  }, [recipe]);
+
+  React.useEffect(() => {
+    if (recipe !== "" && recipeSection.current) {
+      const yCoord =
+        recipeSection.current.getBoundingClientRect().top + window.pageYOffset;
+      window.scrollTo({
+        top: yCoord,
+        behavior: "smooth",
+      });
+    }
   }, [recipe]);
 
   const ingredientElements = forIngredient.map((ingredient) => (
@@ -84,6 +98,7 @@ export default function Main() {
     <main>
       <Form submit={submit} clear={clearIngredientsAndRecipe} />
       <IngredientsList
+        ref={recipeSection}
         forIngredient={forIngredient}
         ingredientElements={ingredientElements}
         getRecipe={getRecipe}
