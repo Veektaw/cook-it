@@ -11,7 +11,7 @@ CookIt is a web application that helps you discover recipes based on the ingredi
 
 ## 🚀 Live Demo
 
-Experience CookIt live at: [https://cook-it-5t7f.onrender.com/](https://cook-it-5t7f.onrender.com/)
+Experience Cook it live at: [https://cook-it-5t7f.onrender.com/](https://cook-it-5t7f.onrender.com/)
 
 ## 🛠️ Technologies Used
 
