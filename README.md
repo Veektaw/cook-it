@@ -1,4 +1,4 @@
-# CookIt 🍳
+# Cook it 🍳
 
 CookIt is a web application that helps you discover recipes based on the ingredients you have on hand. Simply input your available ingredients, and let our AI-powered system suggest delicious recipes you can make!
 
@@ -52,5 +52,5 @@ Give a ⭐️ if this project helped you!
 
 ## 📞 Contact
 
-- GitHub: [@yourusername](Veektaw)
-- Website: [your-website](https://github.com/Veektaw)
+- GitHub: [@Veektaw](Veektaw)
+- Website: [(https://github.com/Veektaw)](https://github.com/Veektaw)
